@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 
-const DataService = require("../service.js");
+const api = require("../api-service");
+
 /**
  * Skills bar component
  *
@@ -21,23 +22,11 @@ class Skills extends Component {
     };
   }
 
-  getSkills() {
-    // DataService.listSkills()
-    // .then(skills => {
-    //   skills.map(skill => (skill.actions = skill.uuid));
-    //   this.setState({skills});
-    //   return;
-    // })
-    // .catch(error => {
-    //   return;
-    // });
-    let skills = [{ name: "Java" }, { name: "Python" }];
-
-    this.setState({ skills });
-  }
-
   componentDidMount() {
-    this.getSkills();
+    api
+      .getSkills()
+      .then((skills) => this.setState({ skills }))
+      .catch((error) => console.log(error));
   }
 
   render() {

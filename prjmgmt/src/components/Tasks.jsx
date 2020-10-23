@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
+const api = require("../api-service");
+
 /**
  * Tasks bar component
  *
@@ -19,17 +21,12 @@ class Tasks extends Component {
     };
   }
 
-  getTasks() {
-    let tasks = [
-      { id: 1, desc: "Update of Financials" },
-      { id: 2, desc: "Update Business Plan" },
-    ];
-
-    this.setState({ tasks });
-  }
 
   componentDidMount() {
-    this.getTasks();
+    api
+      .getTasks()
+      .then((tasks) => this.setState({ tasks }))
+      .catch((error) => console.log(error));
   }
 
   render() {

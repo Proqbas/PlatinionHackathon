@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 
+const api = require("../api-service");
+
 /**
  * Members bar component
  *
@@ -20,17 +22,12 @@ class Members extends Component {
     };
   }
 
-  getMembers() {
-    let members = [
-      { id: 1, name: "Peter" },
-      { id: 2, name: "Captain" },
-    ];
-
-    this.setState({ members });
-  }
 
   componentDidMount() {
-    this.getMembers();
+    api
+      .getMembers()
+      .then((members) => this.setState({ members }))
+      .catch((error) => console.log(error));
   }
 
   render() {
