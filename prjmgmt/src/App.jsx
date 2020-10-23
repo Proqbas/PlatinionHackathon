@@ -1,8 +1,14 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import Navigation from "./components/Navigation";
-import Footer from "./components/Footer";
+
+import Navigation from "./components/Navigation"
+import Footer from "./components/Footer"
+import Dashboard from "./components/Dashboard"
+import Skills from "./components/Skills"
+import Tasks from "./components/Tasks"
+import Members from "./components/Members"
+
 
 /**
  * General React App component.
@@ -25,20 +31,12 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation />
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Switch>
+          <Route path="/skills"><Skills /></Route>
+          <Route path="/members"><Members /></Route>
+          <Route path="/tasks"><Tasks /></Route>
+          <Route path="/"><Dashboard /></Route>
+        </Switch>
         <Footer />
       </div>
     );

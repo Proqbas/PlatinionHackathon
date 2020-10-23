@@ -22,19 +22,19 @@ class Navigation extends Component {
 
   render() {
     return (
-      <Nav
-        activeKey="/home"
-        onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-      >
+      <Nav activeKey="/">
         <Nav.Item>
-          <Nav.Link href="/home"> Dashboard </Nav.Link>{" "}
-        </Nav.Item>{" "}
+          <Nav.Link href="/"> Dashboard </Nav.Link>
+        </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/skills"> Skills </Nav.Link>{" "}
-        </Nav.Item>{" "}
+          <Nav.Link href="/tasks"> Tasks </Nav.Link>
+        </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/members"> Members </Nav.Link>{" "}
-        </Nav.Item>{" "}
+          <Nav.Link href="/skills"> Skills </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/members"> Members </Nav.Link>
+        </Nav.Item>
       </Nav>
     );
   }
