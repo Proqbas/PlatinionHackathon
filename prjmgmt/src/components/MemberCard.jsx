@@ -21,15 +21,13 @@ class MemberCard extends Component {
 
   render() {
     return (
-      <Card>
-        <Card.Body>
-          <Card.Title>Team Members</Card.Title>
-          <Card.Text>Here are the team members</Card.Text>
-        </Card.Body>
-        <Card.Footer>
+      <React.Fragment>
+        <div class="sectionHeader">Team Members</div>
+        <div>Here are the team members</div>
+        <div>
           <small className="text-muted">0/0 members currently available</small>
-        </Card.Footer>
-      </Card>
+        </div>
+      </React.Fragment>
     );
   }
 }
