@@ -77,7 +77,7 @@ class TaskList extends Component {
                 <td>{task.id}</td>
                 <td>{task.name}</td>
                 <td>
-                  <Link to={`/task/${task.id}`}>
+                  <Link to={`/tasks/${task.id}`}>
                     <Button variant="primary">
                       <ArrowUpRightSquare /> Details
                     </Button>

@@ -78,7 +78,7 @@ class MembersList extends Component {
                   <td>{member.id}</td>
                   <td>{member.name}</td>
                   <td>
-                    <Link to={`/member/${member.id}`}>
+                    <Link to={`/members/${member.id}`}>
                       <Button variant="primary">
                         <ArrowUpRightSquare /> Details
                       </Button>

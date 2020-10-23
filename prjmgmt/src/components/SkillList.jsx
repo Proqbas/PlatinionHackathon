@@ -77,7 +77,7 @@ class SkillList extends Component {
                 <td>{skill.id}</td>
                 <td>{skill.name}</td>
                 <td>
-                  <Link to={`/skill/${skill.id}`}>
+                  <Link to={`/skills/${skill.id}`}>
                     <Button variant="primary">
                       <ArrowUpRightSquare /> Details
                     </Button>

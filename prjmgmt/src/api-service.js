@@ -60,7 +60,7 @@ const getSkills = () => {
 
   return new Promise((resolve, reject) => {
     axiosInstance
-      .get("/skill")
+      .get("/skills")
       .then((response) => {
         console.log(response);
 
@@ -117,7 +117,7 @@ const getMembers = () => {
 const getMember = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-    .get(`/member/${id}`)
+    .get(`/members/${id}`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error))
   })
@@ -132,7 +132,7 @@ const getMember = (id) => {
 const deleteMember = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-      .delete(`/member/${id}`)
+      .delete(`/members/${id}`)
       .then(() => resolve())
       .catch((error) => reject(error));
   });
