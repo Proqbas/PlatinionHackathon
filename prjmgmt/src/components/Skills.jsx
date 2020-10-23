@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Table from "react-bootstrap/Table";
+
+const DataService = require("../service.js");
 /**
  * Skills bar component
  *
@@ -14,11 +17,50 @@ class Skills extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      skills: [],
     };
   }
 
+  getSkills() {
+    // DataService.listSkills()
+    // .then(skills => {
+    //   skills.map(skill => (skill.actions = skill.uuid));
+    //   this.setState({skills});
+    //   return;
+    // })
+    // .catch(error => {
+    //   return;
+    // });
+    let skills = [{ name: "Java" }, { name: "Python" }];
+
+    this.setState({ skills });
+  }
+
+  componentDidMount() {
+    this.getSkills();
+  }
+
   render() {
-    return <div>Show all the skills here</div>;
+    return (
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.state.skills.map((skill) => {
+            return (
+              <tr>
+                <td>1</td>
+                <td>{skill.name}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    );
   }
 }
 
