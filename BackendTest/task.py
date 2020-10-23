@@ -56,6 +56,7 @@ def skill_to_dict(x):
     result = dict()
     result["id"] = x.id
     result["name"] = x.name
+    result["level"] = x.level
 
     return result
 
