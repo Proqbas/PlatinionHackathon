@@ -266,10 +266,10 @@ def get_recommended_users_for_task(task_id):
     all_members = Member.query.all()
 
     member_rating_map = dict()  # how well each member suits for this task
-    task_skills = set(task.skill)
+    task_skills = set(task.skills)
 
     for member in all_members:
-        rating = len(member.skill.intersection(task_skills))
+        rating = len(set(member.skills).intersection(task_skills))
         member_rating_map[member.id] = rating
     # preferences function
     relative_member_rating_map = create_relative_member_mapping_map(member_rating_map)
