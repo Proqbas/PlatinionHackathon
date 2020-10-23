@@ -20,7 +20,7 @@ class Task(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
-    desc = db.Column(db.String(128), nullable=True)
+    desc = db.Column(db.String(256), nullable=True)
 
 
 class Member(db.Model):

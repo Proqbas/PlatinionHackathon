@@ -27,7 +27,7 @@ with app.app_context():
     db.session.add(t4)
     t5 = Task(name="Ideating", desc="Think about something new")
     db.session.add(t5)
-    m1 = Member(name="Lieschen-Müller")
+    m1 = Member(name="Lieschen-Mueller")
     db.session.add(m1)
     m2 = Member(name="Max-Mustermann")
     db.session.add(m2)
