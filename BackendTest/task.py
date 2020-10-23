@@ -51,27 +51,36 @@ tasks_schema = TaskSchema(many=True)
 # querry for the db API
 
 # endpoint to show all users
+def skill_to_dict(x):
+    result = dict()
+    result["id"] = x.id
+    result["name"] = x.name
+
+    return result
+
+def create_json_from_task(task):
+    result = dict()
+    result["id"] = task.id
+    result["name"] = task.name
+    skills = task.skills
+    result["skills"] = [skill_to_dict(x) for x in skills]
+
+    return result
+
+# endpoint to show all users
 @app.route("/task", methods=["GET"])
 def get_tasks():
-    all_users = Task.query.all()
-    result = tasks_schema.dump(all_users)
+    all_tasks = Task.query.all()
+    all_tasks_as_dict = [create_json_from_task(x) for x in all_tasks]
 
-    return jsonify(result)
-
+    return jsonify(all_tasks_as_dict)
 
 # endpoint to get user detail by id
 @app.route("/task/<id>", methods=["GET"])
 def get_task(id):
     task = Task.query.get(id)
-    return task_schema.jsonify(task)
-
-
-"""@app.route("/task/<id>/skills", methods=["GET"])
-def get_task_skills(id):
-    task = Task.query.get(id)
-    return ""+task.skills
-"""
-
+    json_task = create_json_from_task(task)
+    return json_task
 
 @app.route("/members", methods=["GET"])
 def get_all_members():
