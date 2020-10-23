@@ -4,6 +4,49 @@ let axiosInstance = axios.create({
   headers: { "x-api-key": "" },
 });
 
+const getTasks = () => {
+  // let tasks = [
+  //   { id: 1, name: "Update of Financials" },
+  //   { id: 2, name: "Update Business Plan" },
+  // ];
+  // return new Promise((resolve, reject) => {
+  //   resolve(tasks);
+  // });
+  return new Promise((resolve, reject) => {
+    axiosInstance
+      .get("/tasks")
+      .then((response) => {
+        console.log(response)
+
+        resolve(response.data)})
+      .catch((error) => reject(error));
+  });
+};
+
+const getTask = (id) => {
+  return new Promise((resolve, reject) => {
+    axiosInstance
+    .get(`/tasks/${id}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error))
+  })
+
+  // let tasks = { id: 1, name: "qweqweqwe" };
+  // return new Promise((resolve, reject) => {
+  //   resolve(tasks);
+  // });
+};
+
+
+const deleteTask = (id) => {
+  return new Promise((resolve, reject) => {
+    axiosInstance
+      .delete(`/tasks/${id}`)
+      .then(() => resolve())
+      .catch((error) => reject(error));
+  });
+};
+
 const getSkills = () => {
   // let skills = [
   //   { id: 1, name: "Java" },
@@ -27,6 +70,29 @@ const getSkills = () => {
   });
 };
 
+const getSkill = (id) => {
+  return new Promise((resolve, reject) => {
+    axiosInstance
+    .get(`/skills/${id}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error))
+  })
+
+  // let skill = { id: 1, name: "JAVA" };
+
+  // return new Promise((resolve, reject) => {
+  //   resolve(skill);
+  // });
+};
+
+const deleteSkill = (id) => {
+  return new Promise((resolve, reject) => {
+    axiosInstance
+      .delete(`/skills/${id}`)
+      .then(() => resolve())
+      .catch((error) => reject(error));
+  });
+};
 const getMembers = () => {
   // let members = [
   //   { id: 1, name: "Peter" },
@@ -48,70 +114,38 @@ const getMembers = () => {
   });
 };
 
-const getTasks = () => {
-  let tasks = [
-    { id: 1, name: "Update of Financials" },
-    { id: 2, name: "Update Business Plan" },
-  ];
+const getMember = (id) => {
   return new Promise((resolve, reject) => {
-    resolve(tasks);
-  });
-  // return new Promise((resolve, reject) => {
-  //   axiosInstance
-  //     .get("/task")
-  //     .then((response) => {
-  //       console.log(response)
+    axiosInstance
+    .get(`/member/${id}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error))
+  })
 
-  //       resolve(response.data)})
-  //     .catch((error) => reject(error));
+  // let member = { id: 1, name: "Peter" };
+
+  // return new Promise((resolve, reject) => {
+  //   resolve(member);
   // });
 };
 
-const deleteTask = (id) => {
+const deleteMember = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-      .delete(`/task/${id}`)
+      .delete(`/member/${id}`)
       .then(() => resolve())
       .catch((error) => reject(error));
   });
 };
 
-const getMember = (id) => {
-  // return new Promise((resolve, reject) => {
-  //   axiosInstance
-  //   .get(`/member/${id}`)
-  //   .then((response) => resolve(response.data))
-  //   .catch((error) => reject(error))
-  // })
-
-  let member = { id: 1, name: "Peter" };
-
-  return new Promise((resolve, reject) => {
-    resolve(member);
-  });
-};
-
-const getSkill = (id) => {
-  let skill = { id: 1, name: "JAVA" };
-
-  return new Promise((resolve, reject) => {
-    resolve(skill);
-  });
-};
-const getTask = (id) => {
-  let task = { id: 1, name: "qweqweqwe" };
-
-  return new Promise((resolve, reject) => {
-    resolve(task);
-  });
-};
-
 module.exports = {
-  getSkills,
-  getMembers,
   getTasks,
   getTask,
   deleteTask,
-  getMember,
+  getSkills,
   getSkill,
+  deleteSkill,
+  getMembers,
+  getMember,
+  deleteMember
 };
