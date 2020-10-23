@@ -66,6 +66,7 @@ class Dashboard extends Component {
           </Col>
         </Row>
       </React.Fragment>
+    )
   }
 }
 
