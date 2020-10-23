@@ -39,6 +39,7 @@ tasks_schema = TaskSchema(many=True)
 def get_task():
     all_users = Task.query.all()
     result = tasks_schema.dump(all_users)
+    print(result)
     return jsonify(result)
 
 
@@ -59,10 +60,10 @@ def get_all_members():
 # -------
 
 # endpoint to update user
-@app.route("/user/<id>", methods=["PUT"])
-def user_update(id):
+@app.route("/task/<id>", methods=["PUT"])
+def task_update(id):
     task = Task.query.get(id)
-    name = request.json['name']
+    name = task.json['name']
 
     task.username = name
 
@@ -71,13 +72,40 @@ def user_update(id):
 
 
 # endpoint to delete user
-@app.route("/user/<id>", methods=["DELETE"])
-def user_delete(id):
+@app.route("/task/<id>", methods=["DELETE"])
+def task_delete(id):
     task = Task.query.get(id)
     db.session.delete(task)
     db.session.commit()
 
     return task_schema.jsonify(task)
+
+#RECOMMENDATION SYSTEM
+def create_relative_member_mapping_map(member_rating_map):
+    relative_map = dict()
+    maximum_score = max(member_rating_map.values())
+
+    for member,rating in member_rating_map.items():
+        relative_map[member] = rating/maximum_score
+
+    return relative_map
+
+@app.route("/simple_recommendations/<task_id>", methods=["GET"])
+def get_recommended_users_for_task(task_id):
+    task = Task.query.get(task_id)
+    all_members = Member.query.all()
+
+    member_rating_map = dict() # how well each member suits for this task
+    task_skills = set(task.skill)
+
+    for member in all_members:
+        rating = len(member.skill.intersection(task_skills))
+        member_rating_map[member.id] = rating
+
+    relative_member_rating_map = create_relative_member_mapping_map(member_rating_map)
+
+    return jsonify(relative_member_rating_map)
+
 
 
 if __name__ == "__main__":
