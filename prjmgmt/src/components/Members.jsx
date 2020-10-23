@@ -55,9 +55,9 @@ class Members extends Component {
         <div class="clear"></div>
         
         <div>
-          <img src={require('../media/peopleMap.png')} height="600px"/>
+          <img src={require('../media/peopleMap2.png')} height="600px"/>
         </div>
-        
+
         <div class="clear"></div>
 
       </React.Fragment>
