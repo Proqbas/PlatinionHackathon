@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import { TrashFill } from "react-bootstrap-icons";
+
 const api = require("../api-service");
 
 /**
@@ -36,6 +39,7 @@ class Tasks extends Component {
           <tr>
             <th>#</th>
             <th>Description</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -44,6 +48,7 @@ class Tasks extends Component {
               <tr>
                 <td>{task.id}</td>
                 <td>{task.name}</td>
+                <td><Button variant="primary"><TrashFill /> Delete</Button></td>
               </tr>
             );
           })}

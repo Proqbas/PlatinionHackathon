@@ -19,9 +19,10 @@ const getSkills = () => {
     axiosInstance
       .get("/skill")
       .then((response) => {
-        console.log(response)
-        
-        resolve(response.data)})
+        console.log(response);
+
+        resolve(response.data);
+      })
       .catch((error) => reject(error));
   });
 };
@@ -39,28 +40,38 @@ const getMembers = () => {
     axiosInstance
       .get("/members")
       .then((response) => {
-        console.log(response)
-        
-        resolve(response.data)})
+        console.log(response);
+
+        resolve(response.data);
+      })
       .catch((error) => reject(error));
   });
 };
 
 const getTasks = () => {
-  // let tasks = [
-  //   { id: 1, desc: "Update of Financials" },
-  //   { id: 2, desc: "Update Business Plan" },
-  // ];
+  let tasks = [
+    { id: 1, name: "Update of Financials" },
+    { id: 2, name: "Update Business Plan" },
+  ];
+  return new Promise((resolve, reject) => {
+    resolve(tasks);
+  });
   // return new Promise((resolve, reject) => {
-  //   resolve(tasks);
+  //   axiosInstance
+  //     .get("/task")
+  //     .then((response) => {
+  //       console.log(response)
+
+  //       resolve(response.data)})
+  //     .catch((error) => reject(error));
   // });
+};
+
+const deleteTask = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-      .get("/task")
-      .then((response) => {
-        console.log(response)
-        
-        resolve(response.data)})
+      .delete(`/task/${id}`)
+      .then(() => resolve())
       .catch((error) => reject(error));
   });
 };
@@ -81,6 +92,7 @@ module.exports = {
   getMembers,
   getTasks,
   getTask,
+  deleteTask,
   getMember,
   getSkill,
 };
