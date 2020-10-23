@@ -1,8 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Table, Column, ForeignKey, Integer
 
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from flask_sqlalchemy import SQLAlchemy
+
 
 
 db = SQLAlchemy()
@@ -21,17 +19,18 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
     desc = db.Column(db.String(128), nullable=True)
-    skills = db.relationship('Skill', secondary=wantedSkills, backref=db.backref('needed'))
 
 
 class Member(db.Model):
     __tablename__ = 'member'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
-    skills = db.relationship('Skill', secondary=givenSkills, backref=db.backref('given'))
 
 
 class Skill(db.Model):
     __tablename__ = 'skill'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
+    given = db.relationship('Member', secondary=givenSkills, backref=db.backref('skills'))
+    needed = db.relationship('Task', secondary=wantedSkills, backref=db.backref('skills'))
+

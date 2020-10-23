@@ -1,6 +1,6 @@
 import sys
 from flask import Flask, jsonify
-from models import db, Task
+from models import db, Task, Skill
 from flask_marshmallow import Marshmallow
 
 from models import Member
@@ -25,9 +25,25 @@ members_schema = MemberSchema(many=True)
 class TaskSchema(ma.Schema):
     class Meta:
         # Fields to expose
+        model = Task
+        fields = ('id', 'name', 'skills')
+
+
+class TaskDetailSchema(ma.Schema):
+    class Meta:
+        # Fields to expose
         fields = ('id', 'name')
 
 
+class SkillSchema(ma.Schema):
+    class Meta:
+        # Fields to expose
+        model = Skill
+        fields = ('id', 'name')
+
+
+skill_schema = SkillSchema()
+skill_schema = SkillSchema(many=True)
 task_schema = TaskSchema()
 tasks_schema = TaskSchema(many=True)
 
@@ -36,18 +52,25 @@ tasks_schema = TaskSchema(many=True)
 
 # endpoint to show all users
 @app.route("/task", methods=["GET"])
-def get_task():
+def get_tasks():
     all_users = Task.query.all()
     result = tasks_schema.dump(all_users)
-    print(result)
+
     return jsonify(result)
 
 
 # endpoint to get user detail by id
 @app.route("/task/<id>", methods=["GET"])
-def task_detail(id):
+def get_task(id):
     task = Task.query.get(id)
     return task_schema.jsonify(task)
+
+
+"""@app.route("/task/<id>/skills", methods=["GET"])
+def get_task_skills(id):
+    task = Task.query.get(id)
+    return ""+task.skills
+"""
 
 
 @app.route("/members", methods=["GET"])
@@ -80,35 +103,33 @@ def task_delete(id):
 
     return task_schema.jsonify(task)
 
-#RECOMMENDATION SYSTEM
+
+# RECOMMENDATION SYSTEM
 def create_relative_member_mapping_map(member_rating_map):
     relative_map = dict()
     maximum_score = max(member_rating_map.values())
 
-    for member,rating in member_rating_map.items():
-        if maximum_score == 0:
-            relative_map[member] = 0
-        else:
-            relative_map[member] = rating/maximum_score
+    for member, rating in member_rating_map.items():
+        relative_map[member] = rating / maximum_score
 
     return relative_map
+
 
 @app.route("/simple_recommendations/<task_id>", methods=["GET"])
 def get_recommended_users_for_task(task_id):
     task = Task.query.get(task_id)
     all_members = Member.query.all()
 
-    member_rating_map = dict() # how well each member suits for this task
-    task_skills = set(task.skills)
+    member_rating_map = dict()  # how well each member suits for this task
+    task_skills = set(task.skill)
 
     for member in all_members:
-        rating = len(set(member.skills).intersection(task_skills))
+        rating = len(member.skill.intersection(task_skills))
         member_rating_map[member.id] = rating
 
     relative_member_rating_map = create_relative_member_mapping_map(member_rating_map)
 
     return jsonify(relative_member_rating_map)
-
 
 
 if __name__ == "__main__":
