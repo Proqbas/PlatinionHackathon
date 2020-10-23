@@ -15,3 +15,9 @@ class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     slug = db.Column(db.String(64), index=True)
     name = db.Column(db.String(64), nullable=False)
+
+
+class Skill(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(64), index=True)
+    name = db.Column(db.String(64), nullable=False)
