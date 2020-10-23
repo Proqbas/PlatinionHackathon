@@ -77,14 +77,33 @@ const deleteTask = (id) => {
 };
 
 const getMember = (id) => {
-  return;
+  // return new Promise((resolve, reject) => {
+  //   axiosInstance
+  //   .get(`/member/${id}`)
+  //   .then((response) => resolve(response.data))
+  //   .catch((error) => reject(error))
+  // })
+
+  let member = { id: 1, name: "Peter" };
+
+  return new Promise((resolve, reject) => {
+    resolve(member);
+  });
 };
 
 const getSkill = (id) => {
-  return;
+  let skill = { id: 1, name: "JAVA" };
+
+  return new Promise((resolve, reject) => {
+    resolve(skill);
+  });
 };
 const getTask = (id) => {
-  return;
+  let task = { id: 1, name: "qweqweqwe" };
+
+  return new Promise((resolve, reject) => {
+    resolve(task);
+  });
 };
 
 module.exports = {
