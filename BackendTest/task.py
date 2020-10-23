@@ -39,6 +39,7 @@ tasks_schema = TaskSchema(many=True)
 def get_task():
     all_users = Task.query.all()
     result = tasks_schema.dump(all_users)
+    print(result)
     return jsonify(result)
 
 
