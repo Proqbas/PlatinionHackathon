@@ -1,56 +1,24 @@
-import React, { Component } from "react";
-import Table from "react-bootstrap/Table";
+import React from "react";
+import {
+  Switch,
+  Route,
+  useRouteMatch
+} from "react-router-dom";
+import Skill from "./Skill"
+import SkillList from "./SkillList"
 
-const api = require("../api-service");
+function Skills() {
+  let match = useRouteMatch();
 
-/**
- * Skills bar component
- *
- * @class Skills
- * @extends {Component}
- */
-class Skills extends Component {
-  /**
-   * Creates an instance of Skills.
-   * @param {Object} props
-   * @memberof Navigation
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      skills: [],
-    };
-  }
-
-  componentDidMount() {
-    api
-      .getSkills()
-      .then((skills) => this.setState({ skills }))
-      .catch((error) => console.log(error));
-  }
-
-  render() {
-    return (
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.skills.map((skill) => {
-            return (
-              <tr>
-                <td>{skill.id}</td>
-                <td>{skill.name}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    );
-  }
+  return (
+      <Switch>
+        <Route path={`${match.path}/:skillId`}>
+          <Skill />
+        </Route>
+        <Route path={match.path}>
+          <SkillList />
+        </Route>
+      </Switch>  );
 }
 
 export default Skills;
