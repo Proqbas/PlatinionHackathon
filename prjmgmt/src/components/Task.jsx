@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+import { Col, Row, Card, ProgressBar, Table } from "react-bootstrap";
+
 const api = require("../api-service");
 
 /**
@@ -18,7 +20,7 @@ class Task extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      member: {}
+      task: {}
     };
 
   }
@@ -36,9 +38,43 @@ class Task extends Component {
   }
 
   render() {
+    let skills = [];
+
+    if (this.state.task.skills) {
+      skills = this.state.task.skills.map((skill) => {
+        let level = (skill.level / 5) * 100;
+        return (
+          <tr>
+            <td>{skill.name}</td>
+            <td>
+              <ProgressBar now={level} />
+            </td>
+          </tr>
+        );
+      });
+    }
+
+
     return (
-      <React.Fragment>
-        This is the task page for {this.props.match.params.taskId}
+      <React.Fragment>        <Row>
+      <Col>
+        <Card>
+          <Card.Body>
+            <Card.Title>{this.state.task.name}</Card.Title>
+            <Card.Text>{this.state.task.desc}</Card.Text>
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col>
+        <Card>
+          <Card.Body>
+            <Card.Text>
+              <Table>{skills}</Table>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
       </React.Fragment>
     );
   }
