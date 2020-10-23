@@ -59,10 +59,10 @@ def get_all_members():
 # -------
 
 # endpoint to update user
-@app.route("/user/<id>", methods=["PUT"])
-def user_update(id):
+@app.route("/task/<id>", methods=["PUT"])
+def task_update(id):
     task = Task.query.get(id)
-    name = request.json['name']
+    name = task.json['name']
 
     task.username = name
 
@@ -71,8 +71,8 @@ def user_update(id):
 
 
 # endpoint to delete user
-@app.route("/user/<id>", methods=["DELETE"])
-def user_delete(id):
+@app.route("/task/<id>", methods=["DELETE"])
+def task_delete(id):
     task = Task.query.get(id)
     db.session.delete(task)
     db.session.commit()
