@@ -79,6 +79,33 @@ def user_delete(id):
 
     return task_schema.jsonify(task)
 
+#RECOMMENDATION SYSTEM
+def create_relative_member_mapping_map(member_rating_map):
+    relative_map = dict()
+    maximum_score = max(member_rating_map.values())
+
+    for member,rating in member_rating_map.items():
+        relative_map[member] = rating/maximum_score
+
+    return relative_map
+
+@app.route("/simple_recommendations/<task_id>", methods=["GET"])
+def get_recommended_users_for_task(task_id):
+    task = Task.query.get(task_id)
+    all_members = Member.query.all()
+
+    member_rating_map = dict() # how well each member suits for this task
+    task_skills = set(task.skill)
+
+    for member in all_members:
+        rating = len(member.skill.intersection(task_skills))
+        member_rating_map[member.id] = rating
+
+    relative_member_rating_map = create_relative_member_mapping_map(member_rating_map)
+
+    return jsonify(relative_member_rating_map)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
