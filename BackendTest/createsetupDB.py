@@ -8,13 +8,13 @@ print("Database created!")
 # elif "seeddb" in sys.argv:
 with app.app_context():
 
-    s1 = Skill(name="python")
+    s1 = Skill(name="python", level=5)
     db.session.add(s1)
-    s2 = Skill(name="finance")
+    s2 = Skill(name="finance", level=2)
     db.session.add(s2)
-    s3 = Skill(name="sql")
+    s3 = Skill(name="sql", level=4)
     db.session.add(s3)
-    s4 = Skill(name="thinking")
+    s4 = Skill(name="thinking", level=3)
     db.session.add(s4)
 
     t1 = Task(name="CreateGit", desc="Collab is usefull, less work for me" )
