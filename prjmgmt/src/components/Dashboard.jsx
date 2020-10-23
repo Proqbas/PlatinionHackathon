@@ -29,6 +29,7 @@ class Dashboard extends Component {
   render() {
     return (
       <React.Fragment>
+        <div class="element">TEST ELEMENT</div>
         <div>
           <Jumbotron>
             <h1>Hello Platinions!</h1>
@@ -47,7 +48,7 @@ class Dashboard extends Component {
               </Button>
             </p>
           </Jumbotron>
-        </div>
+          </div>
         <Row>
           <Col>
             <Status />
@@ -65,7 +66,6 @@ class Dashboard extends Component {
           </Col>
         </Row>
       </React.Fragment>
-    );
   }
 }
 
