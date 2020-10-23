@@ -67,7 +67,11 @@ def create_json_from_task(task):
 
     return result
 
-# endpoint to show all users
+
+def create_json_from_member(member):
+    return create_json_from_task(member)  # same functionality, just a wrapper with proper name
+
+
 @app.route("/task", methods=["GET"])
 def get_tasks():
     all_tasks = Task.query.all()
@@ -75,18 +79,26 @@ def get_tasks():
 
     return jsonify(all_tasks_as_dict)
 
-# endpoint to get user detail by id
+
 @app.route("/task/<id>", methods=["GET"])
 def get_task(id):
     task = Task.query.get(id)
     json_task = create_json_from_task(task)
     return json_task
 
+
 @app.route("/members", methods=["GET"])
 def get_all_members():
     all_members = Member.query.all()
-    result = members_schema.dump(all_members)
-    return jsonify(result)
+    json_members = [create_json_from_member(x) for x in all_members]
+    return jsonify(json_members)
+
+
+@app.route("/members/<id>", methods=["GET"])
+def get_member(id):
+    member = Member.query.get(id)
+    json_member = create_json_from_member(member)
+    return json_member
 
 
 # -------
