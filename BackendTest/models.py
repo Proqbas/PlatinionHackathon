@@ -29,11 +29,13 @@ class Member(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
+    bio = db.Column(db.String(512), nullable=True)
 
 
 class Skill(db.Model):
     __tablename__ = 'skill'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
+    level = db.Column(db.Integer, nullable=True)
     given = db.relationship('Member', secondary=givenSkills, backref=db.backref('skills'))
     needed = db.relationship('Task', secondary=wantedSkills, backref=db.backref('skills'))
