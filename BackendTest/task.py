@@ -43,7 +43,7 @@ class SkillSchema(ma.Schema):
 
 
 skill_schema = SkillSchema()
-skill_schema = SkillSchema(many=True)
+skills_schema = SkillSchema(many=True)
 task_schema = TaskSchema()
 tasks_schema = TaskSchema(many=True)
 
@@ -101,6 +101,19 @@ def get_member(id):
     return json_member
 
 
+
+@app.route("/skills", methods=["GET"])
+def get_all_skills():
+    all_skills = Skill.query.all()
+    result = skills_schema.dump(all_skills)
+    return jsonify(result)
+
+
+@app.route("/skills/<id>", methods=["GET"])
+def get_skill(id):
+    skill = Skill.query.get(id)
+
+    return jsonify(skill_schema.dump(skill))
 # -------
 
 # endpoint to update user
