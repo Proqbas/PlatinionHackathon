@@ -13,7 +13,7 @@ ma = Marshmallow(app)
 class TaskSchema(ma.Schema):
     class Meta:
         # Fields to expose
-        fields = ('name')
+        fields = ('id','name')
 
 
 task_schema = TaskSchema()
@@ -27,22 +27,15 @@ tasks_schema = TaskSchema(many=True)
 def get_task():
     all_users = Task.query.all()
     result = tasks_schema.dump(all_users)
-    return jsonify(result.data)
+    return jsonify(result)
 
 
 # endpoint to get user detail by id
-@app.route("/user/<id>", methods=["GET"])
+@app.route("/task/<id>", methods=["GET"])
 def task_detail(id):
-    user = Task.query.get(id)
-    return task_schema.jsonify(user)
+    task = Task.query.get(id)
+    return task_schema.jsonify(task)
 
-    """task = Task.query.filter(Task.slug == slug).first_or_404()
-    output = {
-        "name": task.name,
-        "description": task.desc,
-        "skills": task.skills,
-    }"""
-    return jsonify(output)
 
 
 

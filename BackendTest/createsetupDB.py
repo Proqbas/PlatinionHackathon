@@ -8,10 +8,10 @@ print("Database created!")
 # elif "seeddb" in sys.argv:
 with app.app_context():
     t1 = Task(slug="creategit", name="CrateGit",
-              desc="desc1", skills="nan")
+              desc="desc1")
     db.session.add(t1)
     t2 = Task(slug="createui", name="CrateUI",
-              desc="desc2", skills="nan")
+              desc="desc2")
     db.session.add(t2)
     m1 = Member(slug="member1", name="Mem1")
     db.session.add(m1)
