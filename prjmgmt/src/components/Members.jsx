@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Table from "react-bootstrap/Table";
+
 /**
  * Members bar component
  *
@@ -14,11 +16,44 @@ class Members extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      members: [],
     };
   }
 
+  getMembers() {
+    let members = [
+      { id: 1, name: "Peter" },
+      { id: 2, name: "Captain" },
+    ];
+
+    this.setState({ members });
+  }
+
+  componentDidMount() {
+    this.getMembers();
+  }
+
   render() {
-    return <div>Show all the members here</div>;
+    return (
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.state.members.map((member) => {
+            return (
+              <tr>
+                <td>{member.id}</td>
+                <td>{member.name}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    );
   }
 }
 

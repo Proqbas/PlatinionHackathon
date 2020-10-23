@@ -62,23 +62,23 @@ body {
   color: black;
 }
 
-.container div.element {
+.container-fluid div.element {
   /* background-color: rgba(82, 162, 130, 0.5); */
   background-color: rgba(98, 180, 98, 0.5);
 }
 
-.container .btn-primary {
+.container-fluid .btn-primary {
   background-color: lightgreen;
   color: black;
   font-weight: bold;
 }
 
-.container .btn-primary:hover{
+.container-fluid .btn-primary:hover{
   background-color: greenyellow;
   color: black;
 }
 
-.container button.btn.btn-primary{
+.container-fluid button.btn.btn-primary{
   border-color: none;
 }
 

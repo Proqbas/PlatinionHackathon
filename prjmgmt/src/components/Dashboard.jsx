@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Button from 'react-bootstrap/Button'
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import TaskCard from "./TaskCard";
+import Status from "./Status";
+import Burndown from "./Burndown";
+import MemberCard from "./MemberCard";
+
 /**
  * Dashboard bar component
  *
@@ -20,6 +28,7 @@ class Dashboard extends Component {
 
   render() {
     return (
+    <React.Fragment>
       <div>
         <div>
           <h1>Auto Tracker</h1>
@@ -52,10 +61,36 @@ class Dashboard extends Component {
           <div class="clear"></div>
 
           <p>
-            <Button variant="primary">Assign tasks</Button>
-          </p>
+              <Button
+                onClick={() =>
+                  alert("But honestly, they don't need a function")
+                }
+                variant="primary"
+              >
+                There are buttons to press
+              </Button>
+            </p>
+
         </div>
       </div>
+
+      <Row>
+        <Col>
+          <Status />
+        </Col>
+        <Col>
+          <Burndown />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <TaskCard />
+        </Col>
+        <Col>
+          <MemberCard />
+        </Col>
+      </Row>
+      </React.Fragment>
     );
   }
 }
