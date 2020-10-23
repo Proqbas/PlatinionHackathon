@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { withRouter, Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import { ArrowUpRightSquare, XCircle } from "react-bootstrap-icons";
 
 const api = require("../api-service");
 
@@ -20,13 +23,41 @@ class Skills extends Component {
     this.state = {
       skills: [],
     };
+
+    this.deleteSkill = this.deleteSkill.bind(this);
   }
 
-  componentDidMount() {
+  getSkills() {
     api
       .getSkills()
       .then((skills) => this.setState({ skills }))
       .catch((error) => console.log(error));
+  }
+
+  deleteSkill(id) {
+    if (id < 1) {
+      console.log("Error while deleting");
+    }
+
+    let confirmation = window.confirm(
+      "Are you sure you wish to remove the Skill?"
+    );
+
+    if (confirmation) {
+      api
+        .deleteSkill(id)
+        .then(() => {
+          this.getSkills();
+        })
+        .catch((error) => {
+          console.log(error);
+          return;
+        });
+    }
+  }
+
+  componentDidMount() {
+    this.getSkills();
   }
 
   render() {
@@ -36,6 +67,7 @@ class Skills extends Component {
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -44,6 +76,19 @@ class Skills extends Component {
               <tr>
                 <td>{skill.id}</td>
                 <td>{skill.name}</td>
+                <td>
+                  <Link to={`/skill/${skill.id}`}>
+                    <Button variant="primary">
+                      <ArrowUpRightSquare /> Details
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={() => this.deleteSkill(skill.id)}
+                    variant="primary"
+                  >
+                    <XCircle /> Delete
+                  </Button>{" "}
+                </td>
               </tr>
             );
           })}
@@ -53,4 +98,4 @@ class Skills extends Component {
   }
 }
 
-export default Skills;
+export default withRouter(Skills);

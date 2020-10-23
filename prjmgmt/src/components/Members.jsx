@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { withRouter, Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import { ArrowUpRightSquare, XCircle } from "react-bootstrap-icons";
 
 const api = require("../api-service");
 
@@ -20,14 +23,41 @@ class Members extends Component {
     this.state = {
       members: [],
     };
+
+    this.deleteMember = this.deleteMember.bind(this);
   }
 
-
-  componentDidMount() {
+  getMembers() {
     api
       .getMembers()
       .then((members) => this.setState({ members }))
       .catch((error) => console.log(error));
+  }
+
+  deleteMember(id) {
+    if (id < 1) {
+      console.log("Error while deleting");
+    }
+
+    let confirmation = window.confirm(
+      "Are you sure you wish to remove the Member?"
+    );
+
+    if (confirmation) {
+      api
+        .deleteMember(id)
+        .then(() => {
+          this.getMembers();
+        })
+        .catch((error) => {
+          console.log(error);
+          return;
+        });
+    }
+  }
+
+  componentDidMount() {
+    this.getMembers();
   }
 
   render() {
@@ -38,6 +68,7 @@ class Members extends Component {
             <tr>
               <th>#</th>
               <th>Name</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +77,19 @@ class Members extends Component {
                 <tr>
                   <td>{member.id}</td>
                   <td>{member.name}</td>
+                  <td>
+                    <Link to={`/member/${member.id}`}>
+                      <Button variant="primary">
+                        <ArrowUpRightSquare /> Details
+                      </Button>
+                    </Link>
+                    <Button
+                      onClick={() => this.deleteMember(member.id)}
+                      variant="primary"
+                    >
+                      <XCircle /> Delete
+                    </Button>{" "}
+                  </td>
                 </tr>
               );
             })}
@@ -53,16 +97,15 @@ class Members extends Component {
         </Table>
 
         <div class="clear"></div>
-        
-        <div>
-          <img src={require('../media/peopleMap.png')} height="600px"/>
-        </div>
-        
-        <div class="clear"></div>
 
+        <div>
+          <img alt="Member Map" src={require("../media/peopleMap.png")} height="600px" />
+        </div>
+
+        <div class="clear"></div>
       </React.Fragment>
     );
   }
 }
 
-export default Members;
+export default withRouter(Members);

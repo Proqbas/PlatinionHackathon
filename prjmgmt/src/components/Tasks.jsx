@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { withRouter, Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import { TrashFill } from "react-bootstrap-icons";
+import { ArrowUpRightSquare, XCircle } from "react-bootstrap-icons";
 
 const api = require("../api-service");
 
@@ -22,14 +23,41 @@ class Tasks extends Component {
     this.state = {
       tasks: [],
     };
+
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
-
-  componentDidMount() {
+  getTasks() {
     api
       .getTasks()
       .then((tasks) => this.setState({ tasks }))
       .catch((error) => console.log(error));
+  }
+
+  componentDidMount() {
+    this.getTasks();
+  }
+
+  deleteTask(id) {
+    if (id < 1) {
+      console.log("Error while deleting");
+    }
+
+    let confirmation = window.confirm(
+      "Are you sure you wish to remove the question?"
+    );
+
+    if (confirmation) {
+      api
+        .deleteTask(id)
+        .then(() => {
+          this.getTasks();
+        })
+        .catch((error) => {
+          console.log(error);
+          return;
+        });
+    }
   }
 
   render() {
@@ -48,7 +76,19 @@ class Tasks extends Component {
               <tr>
                 <td>{task.id}</td>
                 <td>{task.name}</td>
-                <td><Button variant="primary"><TrashFill /> Delete</Button></td>
+                <td>
+                  <Link to={`/task/${task.id}`}>
+                    <Button variant="primary">
+                      <ArrowUpRightSquare /> Details
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={() => this.deleteTask(task.id)}
+                    variant="primary"
+                  >
+                    <XCircle /> Delete
+                  </Button>{" "}
+                </td>
               </tr>
             );
           })}
@@ -58,4 +98,4 @@ class Tasks extends Component {
   }
 }
 
-export default Tasks;
+export default withRouter(Tasks);
