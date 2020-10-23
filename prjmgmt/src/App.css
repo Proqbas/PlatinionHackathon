@@ -1,3 +1,7 @@
+html, body {
+  min-height: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -37,6 +41,53 @@
   }
 }
 
-.test {
-  color: red;
+body {
+  background-image: url('media/background.jpg');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: cover;
+}
+
+/* @media (min-width: 1120px), (min-height: 630px) {
+  body { background-size: auto; }
+} */
+
+.nav {
+  background-color:rgba(98, 180, 98, 0.5);
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.nav a{
+  color: black;
+}
+
+.container div.element {
+  /* background-color: rgba(82, 162, 130, 0.5); */
+  background-color: rgba(98, 180, 98, 0.5);
+}
+
+.container .btn-primary {
+  background-color: lightgreen;
+  color: black;
+  font-weight: bold;
+}
+
+.container .btn-primary:hover{
+  background-color: greenyellow;
+  color: black;
+}
+
+.container button.btn.btn-primary{
+  border-color: none;
+}
+
+div.clear {
+  min-height: 10px;
+  margin-top: 10px;
+  clear: both;
+}
+
+.table {
+  background-color: rgba(98, 180, 98, 0.5);
 }

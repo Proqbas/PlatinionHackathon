@@ -20,15 +20,18 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <Jumbotron>
-        <h1>Hello, world!</h1>
-        <p>
-          This is a simple starting page, but for sure it will impress the jury!
-        </p>
-        <p>
-          <Button variant="primary">Learn more</Button>
-        </p>
-      </Jumbotron>
+      <div>
+        <div>
+          <h1>Auto Tracker</h1>
+          <p>
+            One app to rule them all
+          </p>
+          <p>
+            <Button variant="primary">Learn more</Button>
+          </p>
+        </div>
+        <div class="element">TEST ELEMENT</div>
+      </div>
     );
   }
 }

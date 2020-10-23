@@ -31,12 +31,15 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation />
-        <Switch>
-          <Route path="/skills"><Skills /></Route>
-          <Route path="/members"><Members /></Route>
-          <Route path="/tasks"><Tasks /></Route>
-          <Route path="/"><Dashboard /></Route>
-        </Switch>
+        <div class="clear"></div>
+        <div class="container">
+          <Switch>
+            <Route path="/skills"><Skills /></Route>
+            <Route path="/members"><Members /></Route>
+            <Route path="/tasks"><Tasks /></Route>
+            <Route path="/"><Dashboard /></Route>
+          </Switch>
+        </div>
         <Footer />
       </div>
     );
