@@ -177,7 +177,7 @@ def task_delete(id):
 # endpoint to update members
 @app.route("/members/<id>", methods=["PUT"])
 def members_update(id):
-    members = Members.query.get(id)
+    members = Member.query.get(id)
     name = Member.json['name']
 
     members.name = name
