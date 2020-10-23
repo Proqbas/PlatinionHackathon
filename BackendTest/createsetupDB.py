@@ -17,9 +17,9 @@ with app.app_context():
     s4 = Skill(name="thinking")
     db.session.add(s4)
 
-    t1 = Task(name="CrateGit", desc="Collab is usefull, less work for me" )
+    t1 = Task(name="CreateGit", desc="Collab is usefull, less work for me" )
     db.session.add(t1)
-    t2 = Task(name="CrateUI", desc="Frontend with buttons")
+    t2 = Task(name="CreateUI", desc="Frontend with buttons")
     db.session.add(t2)
     t3 = Task(name="Budgeting", desc="Something important with money")
     db.session.add(t3)
