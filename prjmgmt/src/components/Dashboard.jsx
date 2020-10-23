@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 import TaskCard from "./TaskCard";
 import Status from "./Status";

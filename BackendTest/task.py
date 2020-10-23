@@ -3,7 +3,7 @@ from flask import Flask, jsonify
 from models import db, Task, Skill
 from flask_marshmallow import Marshmallow
 
-from BackendTest.models import Member
+from models import Member
 
 # --------
 app = Flask(__name__)

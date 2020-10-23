@@ -43,7 +43,7 @@ class Tasks extends Component {
             return (
               <tr>
                 <td>{task.id}</td>
-                <td>{task.desc}</td>
+                <td>{task.name}</td>
               </tr>
             );
           })}
