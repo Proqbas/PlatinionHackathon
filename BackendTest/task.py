@@ -70,7 +70,7 @@ def create_json_from_task(task):
 
 
 # endpoint to create new task
-@app.route("/task", methods=["POST"])
+@app.route("/tasks", methods=["POST"])
 def add_task():
     name = request.json['name']
     desc = request.json['desc']
@@ -107,7 +107,7 @@ def create_json_from_member(member):
     return create_json_from_task(member)  # same functionality, just a wrapper with proper name
 
 
-@app.route("/task", methods=["GET"])
+@app.route("/tasks", methods=["GET"])
 def get_tasks():
     all_tasks = Task.query.all()
     all_tasks_as_dict = [create_json_from_task(x) for x in all_tasks]
@@ -115,7 +115,7 @@ def get_tasks():
     return jsonify(all_tasks_as_dict)
 
 
-@app.route("/task/<id>", methods=["GET"])
+@app.route("/tasks/<id>", methods=["GET"])
 def get_task(id):
     task = Task.query.get(id)
     json_task = create_json_from_task(task)
@@ -153,7 +153,7 @@ def get_skill(id):
 # -------
 
 # endpoint to update task
-@app.route("/task/<id>", methods=["PUT"])
+@app.route("/tasks/<id>", methods=["PUT"])
 def task_update(id):
     task = Task.query.get(id)
     name = task.json['name']
@@ -166,7 +166,7 @@ def task_update(id):
 
 
 # endpoint to delete task
-@app.route("/task/<id>", methods=["DELETE"])
+@app.route("/tasks/<id>", methods=["DELETE"])
 def task_delete(id):
     task = Task.query.get(id)
     db.session.delete(task)
