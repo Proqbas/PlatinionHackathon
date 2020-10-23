@@ -1,5 +1,5 @@
 import sys
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from models import db, Task, Skill
 from flask_marshmallow import Marshmallow
 
@@ -50,13 +50,14 @@ tasks_schema = TaskSchema(many=True)
 
 # querry for the db API
 
-# endpoint to show all users
+# endpoint to show all tasks
 def skill_to_dict(x):
     result = dict()
     result["id"] = x.id
     result["name"] = x.name
 
     return result
+
 
 def create_json_from_task(task):
     result = dict()
@@ -66,6 +67,40 @@ def create_json_from_task(task):
     result["skills"] = [skill_to_dict(x) for x in skills]
 
     return result
+
+
+# endpoint to create new task
+@app.route("/task", methods=["POST"])
+def add_task():
+    name = request.json['name']
+    desc = request.json['desc']
+
+    task = Task(name, desc)
+
+    db.session.add(task)
+    db.session.commit()
+
+
+# endpoint to create new member
+@app.route("/members", methods=["POST"])
+def add_members():
+    name = request.json['name']
+
+    member = Member(name)
+
+    db.session.add(member)
+    db.session.commit()
+
+
+# endpoint to create new skill
+@app.route("/skills", methods=["POST"])
+def add_skills():
+    name = request.json['name']
+
+    skill = Skill(name)
+
+    db.session.add(skill)
+    db.session.commit()
 
 
 def create_json_from_member(member):
@@ -101,7 +136,6 @@ def get_member(id):
     return json_member
 
 
-
 @app.route("/skills", methods=["GET"])
 def get_all_skills():
     all_skills = Skill.query.all()
@@ -114,29 +148,71 @@ def get_skill(id):
     skill = Skill.query.get(id)
 
     return jsonify(skill_schema.dump(skill))
+
+
 # -------
 
-# endpoint to update user
+# endpoint to update task
 @app.route("/task/<id>", methods=["PUT"])
 def task_update(id):
     task = Task.query.get(id)
     name = task.json['name']
+    desc = task.json['desc']
 
-    task.username = name
+    task.name = name
+    task.desc = desc
 
     db.session.commit()
-    return task_schema.jsonify(task)
 
 
-# endpoint to delete user
+# endpoint to delete task
 @app.route("/task/<id>", methods=["DELETE"])
 def task_delete(id):
     task = Task.query.get(id)
     db.session.delete(task)
     db.session.commit()
+    json_task = create_json_from_task(task)
+    return json_task
 
-    return task_schema.jsonify(task)
+# endpoint to update members
+@app.route("/members/<id>", methods=["PUT"])
+def members_update(id):
+    members = Members.query.get(id)
+    name = Member.json['name']
 
+    members.name = name
+
+    db.session.commit()
+
+
+# endpoint to delete members
+@app.route("/members/<id>", methods=["DELETE"])
+def members_delete(id):
+    members = Member.query.get(id)
+    db.session.delete(members)
+    db.session.commit()
+    json_member = create_json_from_member(members)
+    return json_member
+
+# endpoint to update skills
+@app.route("/skills/<id>", methods=["PUT"])
+def skills_update(id):
+    skills = Skill.query.get(id)
+    name = Member.json['name']
+
+    skills.name = name
+
+    db.session.commit()
+
+
+# endpoint to delete skills
+@app.route("/skills/<id>", methods=["DELETE"])
+def skills_delete(id):
+    skills = Skill.query.get(id)
+    db.session.delete(skills)
+    db.session.commit()
+
+    return jsonify(skill_schema.dump(skills))
 
 # RECOMMENDATION SYSTEM
 def create_relative_member_mapping_map(member_rating_map):
@@ -163,7 +239,7 @@ def get_recommended_users_for_task(task_id):
     for member in all_members:
         rating = len(member.skill.intersection(task_skills))
         member_rating_map[member.id] = rating
-
+    # preferences function
     relative_member_rating_map = create_relative_member_mapping_map(member_rating_map)
 
     return jsonify(relative_member_rating_map)
