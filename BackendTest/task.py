@@ -34,7 +34,10 @@ if __name__ == "__main__":
         t2 = Task(slug="createui", name="CrateUI",
                   desc="desc2", skills="nan")
         db.session.add(t2)
-        m1 = Member(slug="", name= )
+        m1 = Member(slug="member1", name="Mem1")
+        db.session.add(m1)
+        m2 = Member(slug="member2", name="Mem2")
+        db.session.add(m2)
         db.session.commit()
     print("Database seeded!")
 
