@@ -239,7 +239,7 @@ def add_skill_to_task(skill_id, task_id):
 
 
 @app.route("/task/<task_id>/skill/<skill_id>", methods=["POST"])
-def add_skill_to_member_task_url(skill_id, task_id):
+def add_skill_to_task_different_url(skill_id, task_id):
     return add_skill_to_task(skill_id, task_id)
 
 
