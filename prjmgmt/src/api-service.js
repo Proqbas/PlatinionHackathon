@@ -14,9 +14,10 @@ const getSkills = () => {
   return new Promise((resolve, reject) => {
     resolve(skills);
   });
+
   // axiosInstance.get("api/skill")
-  // .then(response => response.data)
-  // .catch(error => error)
+  //   .then(response => response.data)
+  //   .catch(error => error)
 };
 
 const getMembers = () => {
