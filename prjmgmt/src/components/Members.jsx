@@ -32,24 +32,35 @@ class Members extends Component {
 
   render() {
     return (
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.members.map((member) => {
-            return (
-              <tr>
-                <td>{member.id}</td>
-                <td>{member.name}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <React.Fragment>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.members.map((member) => {
+              return (
+                <tr>
+                  <td>{member.id}</td>
+                  <td>{member.name}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+
+        <div class="clear"></div>
+        
+        <div>
+          <img src={require('../media/peopleMap.png')} height="600px"/>
+        </div>
+        
+        <div class="clear"></div>
+
+      </React.Fragment>
     );
   }
 }
