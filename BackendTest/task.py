@@ -105,7 +105,14 @@ def add_skills():
 
 
 def create_json_from_member(member):
-    return create_json_from_task(member)  # same functionality, just a wrapper with proper name
+    result = dict()
+    result["id"] = member.id
+    result["name"] = member.name
+    result["bio"] = member.bio
+    skills = member.skills
+    result["skills"] = [skill_to_dict(x) for x in skills]
+
+    return result
 
 
 @app.route("/tasks", methods=["GET"])
