@@ -144,7 +144,10 @@ def create_relative_member_mapping_map(member_rating_map):
     maximum_score = max(member_rating_map.values())
 
     for member, rating in member_rating_map.items():
-        relative_map[member] = rating / maximum_score
+        if maximum_score == 0:
+            relative_map[member] = 0
+        else:
+            relative_map[member] = rating / maximum_score
 
     return relative_map
 
