@@ -76,11 +76,11 @@ class Dashboard extends Component {
       <p>
         <Button
           onClick={() =>
-            alert("But honestly, they don't need a function")
+            alert("Launching Glue!")
           }
           variant="primary"
         >
-          There are buttons to press
+          Jump to VR
         </Button>
       </p>
 

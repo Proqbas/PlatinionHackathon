@@ -43,7 +43,7 @@ class SkillSchema(ma.Schema):
 
 
 skill_schema = SkillSchema()
-skill_schema = SkillSchema(many=True)
+skills_schema = SkillSchema(many=True)
 task_schema = TaskSchema()
 tasks_schema = TaskSchema(many=True)
 
@@ -51,35 +51,69 @@ tasks_schema = TaskSchema(many=True)
 # querry for the db API
 
 # endpoint to show all users
+def skill_to_dict(x):
+    result = dict()
+    result["id"] = x.id
+    result["name"] = x.name
+
+    return result
+
+def create_json_from_task(task):
+    result = dict()
+    result["id"] = task.id
+    result["name"] = task.name
+    skills = task.skills
+    result["skills"] = [skill_to_dict(x) for x in skills]
+
+    return result
+
+
+def create_json_from_member(member):
+    return create_json_from_task(member)  # same functionality, just a wrapper with proper name
+
+
 @app.route("/task", methods=["GET"])
 def get_tasks():
-    all_users = Task.query.all()
-    result = tasks_schema.dump(all_users)
+    all_tasks = Task.query.all()
+    all_tasks_as_dict = [create_json_from_task(x) for x in all_tasks]
 
-    return jsonify(result)
+    return jsonify(all_tasks_as_dict)
 
 
-# endpoint to get user detail by id
 @app.route("/task/<id>", methods=["GET"])
 def get_task(id):
     task = Task.query.get(id)
-    return task_schema.jsonify(task)
-
-
-"""@app.route("/task/<id>/skills", methods=["GET"])
-def get_task_skills(id):
-    task = Task.query.get(id)
-    return ""+task.skills
-"""
+    json_task = create_json_from_task(task)
+    return json_task
 
 
 @app.route("/members", methods=["GET"])
 def get_all_members():
     all_members = Member.query.all()
-    result = members_schema.dump(all_members)
+    json_members = [create_json_from_member(x) for x in all_members]
+    return jsonify(json_members)
+
+
+@app.route("/members/<id>", methods=["GET"])
+def get_member(id):
+    member = Member.query.get(id)
+    json_member = create_json_from_member(member)
+    return json_member
+
+
+
+@app.route("/skills", methods=["GET"])
+def get_all_skills():
+    all_skills = Skill.query.all()
+    result = skills_schema.dump(all_skills)
     return jsonify(result)
 
 
+@app.route("/skills/<id>", methods=["GET"])
+def get_skill(id):
+    skill = Skill.query.get(id)
+
+    return jsonify(skill_schema.dump(skill))
 # -------
 
 # endpoint to update user
@@ -110,7 +144,10 @@ def create_relative_member_mapping_map(member_rating_map):
     maximum_score = max(member_rating_map.values())
 
     for member, rating in member_rating_map.items():
-        relative_map[member] = rating / maximum_score
+        if maximum_score == 0:
+            relative_map[member] = 0
+        else:
+            relative_map[member] = rating / maximum_score
 
     return relative_map
 
