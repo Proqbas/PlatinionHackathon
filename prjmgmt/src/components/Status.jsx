@@ -21,12 +21,10 @@ class Status extends Component {
 
   render() {
     return (
-      <Card>
-        <Card.Body>
-          <Card.Title>Project status</Card.Title>
-          <Card.Text>Traffic light</Card.Text>
-        </Card.Body>
-      </Card>
+      <div class="wrapperSideToSide sectionHeader">
+          <div class="left">Status:</div>
+          <div class="right projectStatusGreen">on track</div>
+      </div>
     );
   }
 }

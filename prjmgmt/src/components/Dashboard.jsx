@@ -35,61 +35,58 @@ class Dashboard extends Component {
           <p>
             One app to rule them all
           </p>
-          <div class="row justify-content-between">
-            <div class="col-4 element">
-              <div class="wrapperSideToSide sectionHeader">
-                <div class="left">Status:</div>
-                <div class="right projectStatusGreen">on track</div>
-              </div>
-            </div>
-            <div class="col-6 element">
-              <div class="sectionHeader">Done vs Undone</div>
-            </div>
-          </div>
-
+          
           <div class="clear"></div>
-
-          <div class="row justify-content-between">
-            <div class="col-4 element">
-              <div class="sectionHeader">Tasks</div>
-            </div>
-            <div class="col-6">
-              <img src="https://www.redmineup.com/cms/assets/thumbnail//32893/1200/burndown.png?token=3aab306e3a0cb67c1c9a058a375b4b46eaebb90ba18ada6e70f056ea38649b77" width="100%"/>
-            </div>
-          </div>
-
-          <div class="clear"></div>
-
-          <p>
-              <Button
-                onClick={() =>
-                  alert("But honestly, they don't need a function")
-                }
-                variant="primary"
-              >
-                There are buttons to press
-              </Button>
-            </p>
 
         </div>
       </div>
 
-      <Row>
-        <Col>
+      <div class="clear"></div>
+
+      <div class="row justify-content-between">
+        <div class="col-4 element">
           <Status />
-        </Col>
-        <Col>
-          <Burndown />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+        </div>
+        <div class="col-6 element">
+          <div class="sectionHeader">Burndown chart</div>
+        </div>
+      </div>
+      
+      <div class="clear"></div>
+
+      <div class="row justify-content-between">
+        <div class="col-4 element">
           <TaskCard />
-        </Col>
-        <Col>
+        </div>
+        <div class="col-6 element">
+          <Burndown />
+        </div>
+      </div>
+
+      <div class="clear"></div>
+
+      <div class="row justify-content-between">
+        <div class="col-4">
+          
+        </div>
+        <div class="col-6 element">
           <MemberCard />
-        </Col>
-      </Row>
+        </div>
+      </div>
+      
+      <div class="clear"></div>
+
+      <p>
+        <Button
+          onClick={() =>
+            alert("But honestly, they don't need a function")
+          }
+          variant="primary"
+        >
+          There are buttons to press
+        </Button>
+      </p>
+
       </React.Fragment>
     );
   }

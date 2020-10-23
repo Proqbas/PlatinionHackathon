@@ -21,14 +21,7 @@ class Burndown extends Component {
 
   render() {
     return(
-        <Card>
-        <Card.Body>
-          <Card.Title>Burndown chart</Card.Title>
-          <Card.Text>
-            Fancy chart!
-          </Card.Text>
-        </Card.Body>
-      </Card>
+      <img src="https://www.redmineup.com/cms/assets/thumbnail//32893/1200/burndown.png?token=3aab306e3a0cb67c1c9a058a375b4b46eaebb90ba18ada6e70f056ea38649b77" width="100%" height="95%"/>
     )
   }
 }

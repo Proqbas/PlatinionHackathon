@@ -22,14 +22,10 @@ class TaskCard extends Component {
 
   render() {
     return(
-        <Card>
-        <Card.Body>
-          <Card.Title>Tasks</Card.Title>
-          <Card.Text>
-            <Tasks />
-          </Card.Text>
-        </Card.Body>
-      </Card>
+      <React.Fragment>
+        <div class="sectionHeader">Tasks</div>
+        <Tasks />
+      </React.Fragment>
     )
   }
 }

@@ -7,7 +7,13 @@ print("Database created!")
 
 # elif "seeddb" in sys.argv:
 with app.app_context():
-    t1 = Task(name="CrateGit", desc="desc1", )
+
+    s1 = Skill(name="python")
+    db.session.add(s1)
+    s2 = Skill(name="java")
+    db.session.add(s2)
+
+    t1 = Task(name="CrateGit", desc="desc1" )
     db.session.add(t1)
     t2 = Task(name="CrateUI", desc="desc2")
     db.session.add(t2)
@@ -15,9 +21,13 @@ with app.app_context():
     db.session.add(m1)
     m2 = Member(name="Mem2")
     db.session.add(m2)
-    s1 = Skill(name="python")
-    db.session.add(s1)
-    s2 = Skill(name="python")
-    db.session.add(s2)
+    db.session.commit()
+    #---
+
+    m1.skills.append(s1)
+    m1.skills.append(s2)
+    t1.skills.append(s1)
+    t1.skills.append(s2)
+    #---
     db.session.commit()
 print("Database seeded!")
