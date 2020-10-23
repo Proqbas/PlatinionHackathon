@@ -229,6 +229,20 @@ def add_skill_to_member_different_url(skill_id, member_id):
     return add_skill_to_member(skill_id, member_id)
 
 
+@app.route("/skill/<skill_id>/task/<task_id>", methods=["POST"])
+def add_skill_to_task(skill_id, task_id):
+    task = Task.query.get(task_id)
+    task.skills.append(Skill.query.get(skill_id))
+    db.session.commit()
+
+    return jsonify("OK")
+
+
+@app.route("/task/<task_id>/skill/<skill_id>", methods=["POST"])
+def add_skill_to_member_task_url(skill_id, task_id):
+    return add_skill_to_task(skill_id, task_id)
+
+
 # RECOMMENDATION SYSTEM
 def create_relative_member_mapping_map(member_rating_map):
     relative_map = dict()
