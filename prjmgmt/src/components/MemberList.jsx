@@ -99,7 +99,7 @@ class MembersList extends Component {
         <div class="clear"></div>
 
         <div>
-          <img alt="Member Map" src={require("../media/peopleMap2.png")} height="600px" />
+          <img alt="Member Map" src={require("../media/peopleMap2.png")} height="1200px" />
         </div>
 
         <div class="clear"></div>

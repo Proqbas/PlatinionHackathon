@@ -27,13 +27,13 @@ class TaskSchema(ma.Schema):
     class Meta:
         # Fields to expose
         model = Task
-        fields = ('id', 'name', 'skills')
+        fields = ('id', 'name', 'skills', 'status')
 
 
 class TaskDetailSchema(ma.Schema):
     class Meta:
         # Fields to expose
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'status')
 
 
 class SkillSchema(ma.Schema):
@@ -65,6 +65,7 @@ def create_json_from_task(task):
     result = dict()
     result["id"] = task.id
     result["name"] = task.name
+    result["status"] = task.status
     skills = task.skills
     result["skills"] = [skill_to_dict(x) for x in skills]
 
@@ -76,8 +77,8 @@ def create_json_from_task(task):
 def add_task():
     name = request.json['name']
     desc = request.json['desc']
-
-    task = Task(name, desc)
+    status = "PLANNED"
+    task = Task(name, desc, status)
 
     db.session.add(task)
     db.session.commit()
@@ -303,6 +304,10 @@ def get_recommended_user_for_task(id):
     max_keys = [k for k, v in relative_member_rating_map.items() if v == max_value]  # getting all keys containing the `maximum`
     return create_json_from_member(Member.query.get(max_keys))
 
+
+@app.route("/task/<id>/recommend", methods=["GET"])
+def get_recommended_user_for_task_another_url(id):
+    return get_recommended_user_for_task(id)
 
 if __name__ == "__main__":
     app.run(debug=True)

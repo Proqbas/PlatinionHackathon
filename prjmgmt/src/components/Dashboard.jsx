@@ -28,9 +28,9 @@ class Dashboard extends Component {
     <React.Fragment>
       <div>
         <div>
-          <h1>Auto Tracker</h1>
+          <div class="topHeader">Smart Projects</div>
           <p>
-            One app to rule them all
+            <h2>One app to rule them all</h2>
           </p>
           
           <div class="clear"></div>
