@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-
-import { Col, Row, Card, ProgressBar, Table } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Card,
+  ProgressBar,
+  Table,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
+import { Binoculars, CheckCircle, Play, QuestionCircle } from "react-bootstrap-icons";
 
 const api = require("../api-service");
 
@@ -20,9 +28,8 @@ class Task extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      task: {}
+      task: {},
     };
-
   }
 
   getTask(id) {
@@ -32,13 +39,14 @@ class Task extends Component {
       .catch((error) => console.log(error));
   }
 
-
   componentDidMount() {
     this.getTask(this.props.match.params.taskId);
   }
 
   render() {
     let skills = [];
+
+    let icon = "";
 
     if (this.state.task.skills) {
       skills = this.state.task.skills.map((skill) => {
@@ -54,27 +62,47 @@ class Task extends Component {
       });
     }
 
+    switch (this.state.task.status) {
+      case "open":
+        icon = <Binoculars />
+        break;
+      case "active":
+        icon = <Play />;
+        break;
+      case "completed":
+        icon = <CheckCircle className="text-success" />;
+        break;
+      default:
+        icon = <QuestionCircle />;
+    }
 
     return (
-      <React.Fragment>        <Row>
-      <Col>
-        <Card>
-          <Card.Body>
-            <Card.Title>{this.state.task.name}</Card.Title>
-            <Card.Text>{this.state.task.desc}</Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
-      <Col>
-        <Card>
-          <Card.Body>
-            <Card.Text>
-              <Table>{skills}</Table>
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
+      <React.Fragment>
+        {" "}
+        <Row>
+          <Col>
+            <Card>
+              <Card.Body>
+                <Card.Title>
+                  {this.state.task.name} {icon}{" "}
+                </Card.Title>
+                <Card.Text>{this.state.task.desc}</Card.Text>
+              </Card.Body>
+              <ListGroup className="list-group-flush">
+                <ListGroupItem>Cras justo odio</ListGroupItem>
+              </ListGroup>
+            </Card>
+          </Col>
+          <Col>
+            <Card>
+              <Card.Body>
+                <Card.Text>
+                  <Table>{skills}</Table>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
       </React.Fragment>
     );
   }

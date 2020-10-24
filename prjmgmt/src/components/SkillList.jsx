@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import { ArrowUpRightSquare, XCircle } from "react-bootstrap-icons";
+import { ArrowUpRightSquare } from "react-bootstrap-icons";
 
 const api = require("../api-service");
 
@@ -82,12 +82,12 @@ class SkillList extends Component {
                       <ArrowUpRightSquare /> Details
                     </Button>
                   </Link>
-                  <Button
+                  {/* <Button
                     onClick={() => this.deleteSkill(skill.id)}
                     variant="primary"
                   >
                     <XCircle /> Delete
-                  </Button>{" "}
+                  </Button>{" "} */}
                 </td>
               </tr>
             );

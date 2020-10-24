@@ -67,6 +67,7 @@ class TaskList extends Component {
           <tr>
             <th>#</th>
             <th>Description</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -76,6 +77,7 @@ class TaskList extends Component {
               <tr>
                 <td>{task.id}</td>
                 <td>{task.name}</td>
+                <td>{task.status}</td>
                 <td>
                   <Link to={`/tasks/${task.id}`}>
                     <Button variant="primary">
