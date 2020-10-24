@@ -47,6 +47,16 @@ const deleteTask = (id) => {
   });
 };
 
+
+const assignMembers = (id) => {
+  return new Promise((resolve, reject) => {
+    axiosInstance
+    .delete(`/tasks/${id}/recommend`)
+    .then(() => resolve())
+    .catch((error) => reject(error))
+  })
+}
+
 const getSkills = () => {
   // let skills = [
   //   { id: 1, name: "Java" },
@@ -138,10 +148,12 @@ const deleteMember = (id) => {
   });
 };
 
+
 module.exports = {
   getTasks,
   getTask,
   deleteTask,
+  assignMembers,
   getSkills,
   getSkill,
   deleteSkill,

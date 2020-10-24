@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { Col, Row, Card, ProgressBar, Table } from "react-bootstrap";
 import {
-  Col,
-  Row,
-  Card,
-  ProgressBar,
-  Table,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
-import { Binoculars, CheckCircle, Play, QuestionCircle } from "react-bootstrap-icons";
+  Binoculars,
+  CheckCircle,
+  Play,
+  QuestionCircle,
+} from "react-bootstrap-icons";
 
 const api = require("../api-service");
 
@@ -30,12 +27,21 @@ class Task extends Component {
     this.state = {
       task: {},
     };
+
+    this.assignMembers = this.assignMembers.bind(this);
   }
 
   getTask(id) {
     api
       .getTask(id)
       .then((task) => this.setState({ task }))
+      .catch((error) => console.log(error));
+  }
+
+  assignMembers(id) {
+    api
+      .assignMembers(id)
+      .then(() => this.getTask(this.props.match.params.taskId))
       .catch((error) => console.log(error));
   }
 
@@ -47,6 +53,7 @@ class Task extends Component {
     let skills = [];
 
     let icon = "";
+    let assignment = "";
 
     if (this.state.task.skills) {
       skills = this.state.task.skills.map((skill) => {
@@ -63,13 +70,20 @@ class Task extends Component {
     }
 
     switch (this.state.task.status) {
-      case "open":
-        icon = <Binoculars />
+      case "OPEN":
+        icon = <Binoculars />;
+        assignment = (
+          <Card.Body>
+            <Card.Link onClick={() => this.assignMembers(this.state.task.id)}>
+              Assign Members Link
+            </Card.Link>
+          </Card.Body>
+        );
         break;
-      case "active":
+      case "IN PROGRESS":
         icon = <Play />;
         break;
-      case "completed":
+      case "DONE":
         icon = <CheckCircle className="text-success" />;
         break;
       default:
@@ -78,7 +92,6 @@ class Task extends Component {
 
     return (
       <React.Fragment>
-        {" "}
         <Row>
           <Col>
             <Card>
@@ -88,9 +101,7 @@ class Task extends Component {
                 </Card.Title>
                 <Card.Text>{this.state.task.desc}</Card.Text>
               </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-              </ListGroup>
+              {assignment}
             </Card>
           </Col>
           <Col>
