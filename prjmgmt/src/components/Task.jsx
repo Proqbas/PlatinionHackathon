@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import Table from "react-bootstrap/Table";
 
 const api = require("../api-service");
 
@@ -18,7 +19,7 @@ class Task extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      member: {}
+      task: { skills: [] }
     };
 
   }
@@ -38,7 +39,25 @@ class Task extends Component {
   render() {
     return (
       <React.Fragment>
-        This is the task page for {this.props.match.params.taskId}
+        <h2>{this.state.task.name} - required skills</h2>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Skill</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.task.skills.map((skill) => {
+              return (
+                <tr>
+                  <td>{skill.id}</td>
+                  <td>{skill.name}</td>                
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
       </React.Fragment>
     );
   }
