@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Col, Row, Card, ProgressBar, Table, Button } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Card,
+  ProgressBar,
+  Table,
+  Button,
+  ListGroup
+} from "react-bootstrap";
 import {
   Binoculars,
   CheckCircle,
@@ -52,6 +60,7 @@ class Task extends Component {
   render() {
     let skills = [];
 
+    let tags = "";
     let icon = "";
     let assignment = "";
     let assignedMembers = "";
@@ -96,6 +105,16 @@ class Task extends Component {
       );
     }
 
+    if (this.state.task.suggested_keywords) {
+      tags = (
+        <ListGroup>
+          {this.state.task.suggested_keywords.map((keyword) => (
+            <ListGroup.Item>keyword</ListGroup.Item>
+          ))}
+        </ListGroup>
+      );
+    }
+
     switch (this.state.task.status) {
       case "OPEN":
         icon = <Binoculars />;
@@ -128,6 +147,7 @@ class Task extends Component {
                 </Card.Title>
                 <Card.Text>{this.state.task.desc}</Card.Text>
               </Card.Body>
+              {tags}
               {assignment}
             </Card>
           </Col>
