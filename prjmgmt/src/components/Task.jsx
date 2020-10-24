@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import Table from "react-bootstrap/Table";
 
 import { Col, Row, Card, ProgressBar, Table } from "react-bootstrap";
 

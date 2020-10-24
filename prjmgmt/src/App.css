@@ -6,12 +6,13 @@ body {
   background-size: cover;
 }
 
-
 html, body {
   min-height: 100%;
 }
 
-
+body #root {
+  font-size: 2rem;
+}
 
 .App {
   text-align: center;
@@ -80,6 +81,7 @@ html, body {
   background-color: lightgreen;
   color: black;
   font-weight: bold;
+  font-size: 4rem;
 }
 
 .container-fluid .btn-primary:hover{
@@ -121,7 +123,7 @@ div.clear {
 }
 
 .sectionHeader {
-  font-size: 2rem;
+  font-size: 4rem;
   font-weight: 500;
   line-height: 1.2;
 }
