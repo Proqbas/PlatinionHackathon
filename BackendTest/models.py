@@ -1,17 +1,21 @@
 from flask_sqlalchemy import SQLAlchemy
 
-
 db = SQLAlchemy()
 
 wantedSkills = db.Table('wantedSkills',
                         db.Column('task_id', db.Integer, db.ForeignKey('task.id')),
-                        db.Column('skill_id', db.Integer, db.ForeignKey('skill.id')),
+                        db.Column('skill_id', db.Integer, db.ForeignKey('skill.id'))
                         )
 
 givenSkills = db.Table('availableSkills',
                        db.Column('member_id', db.Integer, db.ForeignKey('member.id')),
-                       db.Column('skill_id', db.Integer, db.ForeignKey('skill.id')),
+                       db.Column('skill_id', db.Integer, db.ForeignKey('skill.id'))
                        )
+
+assigned = db.Table('assignedmem',
+                        db.Column('member_id', db.Integer, db.ForeignKey('member.id')),
+                        db.Column('task_id', db.Integer, db.ForeignKey('task.id')),
+                        )
 
 
 class Task(db.Model):
@@ -23,6 +27,7 @@ class Task(db.Model):
     desc = db.Column(db.String(256), nullable=True)
     status = db.Column(db.String(256), nullable=False)
 
+
 class Member(db.Model):
     __tablename__ = 'member'
     RELATIONSHIPS_TO_DICT = True
@@ -30,6 +35,7 @@ class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
     bio = db.Column(db.String(512), nullable=True)
+    assignedto = db.relationship('Task', secondary=assigned, backref=db.backref('assignee'))
 
 
 class Skill(db.Model):
