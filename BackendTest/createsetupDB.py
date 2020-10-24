@@ -25,7 +25,7 @@ with app.app_context():
     s8 = Skill(name="abap", level=5)
     db.session.add(s8)
 
-    t1 = Task(name="Create Git", desc="Collab is usefull, less work for me", status="OPEN")
+    t1 = Task(name="Create Git", desc="We need to create a microservice for calulating the amount of materials that we will have to use in production. We have to use cloud environment for this task. It can use MachineLearning algorithms to utilize our past data. While working on this service we should focus on high-availability.", status="OPEN")
     db.session.add(t1)
     t2 = Task(name="Create UI", desc="Frontend with buttons", status="DONE")
     db.session.add(t2)

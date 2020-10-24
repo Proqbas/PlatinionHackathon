@@ -138,9 +138,10 @@ class Task extends Component {
 
     return (
       <React.Fragment>
+        <div class="clear"></div>
         <Row>
           <Col>
-            <Card>
+            <Card className="element">
               <Card.Body>
                 <Card.Title>
                   {this.state.task.name} {icon}{" "}
@@ -152,7 +153,7 @@ class Task extends Component {
             </Card>
           </Col>
           <Col>
-            <Card>
+            <Card className="element">
               <Card.Body>
                 <Card.Text>
                   <Table hover>
