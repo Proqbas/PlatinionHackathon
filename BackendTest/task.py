@@ -347,9 +347,27 @@ def get_recommended_user_for_task(id):
     return create_json_from_member(Member.query.get(max_keys))
 
 
-@app.route("/task/<id>/recommend", methods=["GET"])
+@app.route("/tasks/<id>/recommend", methods=["Post"])
 def get_recommended_user_for_task_another_url(id):
-    return get_recommended_user_for_task(id)
+    task = Task.query.get(id)
+    all_members = Member.query.all()
+
+    member_rating_map = dict()  # how well each member suits for this task
+    task_skills = set(task.skills)
+
+    for member in all_members:
+        rating = len(set(member.skills).intersection(task_skills))
+        member_rating_map[member.id] = rating
+    # preferences function
+    relative_member_rating_map = create_relative_member_mapping_map(member_rating_map)
+
+    max_value = max(relative_member_rating_map.values())  # maximum value
+    max_keys = [k for k, v in relative_member_rating_map.items() if v == max_value]
+    member = Member.query.get(max_keys)
+    member.assigned_to.append(task)
+    db.session.commit()
+
+    return create_json_from_member(Member.query.get(max_keys))
 
 if __name__ == "__main__":
     app.run(debug=True)
