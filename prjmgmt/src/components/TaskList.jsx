@@ -66,7 +66,7 @@ class TaskList extends Component {
         <thead>
           <tr>
             <th>#</th>
-            <th>Description</th>
+            <th>Task</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
