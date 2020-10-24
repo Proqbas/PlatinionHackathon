@@ -42,7 +42,6 @@ class SkillSchema(ma.Schema):
         model = Skill
         fields = ('id', 'name')
 
-
 skill_schema = SkillSchema()
 skills_schema = SkillSchema(many=True)
 task_schema = TaskSchema()
@@ -166,11 +165,13 @@ def get_skill(id):
 @app.route("/tasks/<id>", methods=["PUT"])
 def task_update(id):
     task = Task.query.get(id)
-    name = task.json['name']
-    desc = task.json['desc']
+    name = request.json['name']
+    desc = request.json['desc']
+    status = request.json['status']
 
     task.name = name
     task.desc = desc
+    task.status = status
 
     db.session.commit()
 
