@@ -56,6 +56,7 @@ def skill_to_dict(x):
     result = dict()
     result["id"] = x.id
     result["name"] = x.name
+    result["level"] = x.level
 
     return result
 
@@ -105,7 +106,14 @@ def add_skills():
 
 
 def create_json_from_member(member):
-    return create_json_from_task(member)  # same functionality, just a wrapper with proper name
+    result = dict()
+    result["id"] = member.id
+    result["name"] = member.name
+    result["bio"] = member.bio
+    skills = member.skills
+    result["skills"] = [skill_to_dict(x) for x in skills]
+
+    return result
 
 
 @app.route("/tasks", methods=["GET"])
@@ -283,16 +291,22 @@ def get_recommended_user_for_task(id):
     all_members = Member.query.all()
 
     member_rating_map = dict()  # how well each member suits for this task
-    task_skills = set(task.skill)
+    task_skills = set(task.skills)
 
     for member in all_members:
-        rating = len(member.skill.intersection(task_skills))
+        rating = len(set(member.skills).intersection(task_skills))
         member_rating_map[member.id] = rating
     # preferences function
     relative_member_rating_map = create_relative_member_mapping_map(member_rating_map)
 
-    return jsonify(max(relative_member_rating_map.iteritems(), key=operator.itemgetter(1))[0])
+    max_value = max(relative_member_rating_map.values())  # maximum value
+    max_keys = [k for k, v in relative_member_rating_map.items() if v == max_value]  # getting all keys containing the `maximum`
+    return create_json_from_member(Member.query.get(max_keys))
 
+
+@app.route("/task/<id>/recommend", methods=["GET"])
+def get_recommended_user_for_task_another_url(id):
+    return get_recommended_user_for_task(id)
 
 if __name__ == "__main__":
     app.run(debug=True)
