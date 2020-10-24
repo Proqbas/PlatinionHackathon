@@ -44,7 +44,7 @@ class Burndown extends Component {
 
   render() {
 	return (
-		<ResponsiveContainer width="100%" height={400}>
+		<ResponsiveContainer width="100%" height="100%">
 			<AreaChart
 			data={data}
 			margin={{
