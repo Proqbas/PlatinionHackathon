@@ -55,9 +55,10 @@ class Member extends Component {
 
     return (
       <React.Fragment>
+        <div class="clear"></div>
         <Row>
           <Col>
-            <Card>
+            <Card className="element">
               <Card.Img variant="top" src={avatar}/>
               <Card.Body>
                 <Card.Title>{this.state.member.name}</Card.Title>
@@ -66,7 +67,7 @@ class Member extends Component {
             </Card>
           </Col>
           <Col>
-            <Card>
+            <Card className="element">
               <Card.Body>
                 <Card.Text>
                   <Table hover>
