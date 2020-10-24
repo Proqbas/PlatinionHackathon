@@ -24,7 +24,7 @@ class Task(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
-    desc = db.Column(db.String(256), nullable=True)
+    desc = db.Column(db.String(1024), nullable=True)
     status = db.Column(db.String(256), nullable=False)
 
 

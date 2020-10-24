@@ -5,7 +5,7 @@ from models import db, Task, Skill
 from flask_marshmallow import Marshmallow
 
 from models import Member
-
+from gensim.summarization import keywords
 # --------
 app = Flask(__name__)
 
@@ -163,6 +163,8 @@ def get_tasks():
 def get_task(id):
     task = Task.query.get(id)
     json_task = create_json_from_task(task)
+    task_desc = json_task["desc"]
+    json_task["suggested_keywords"] = keywords(task_desc).split('\n')[:5]
     return json_task
 
 
