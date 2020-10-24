@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "../logo.svg";
+import avatar from "../media/avatar.png";
 import { withRouter } from "react-router-dom";
 import { Col, Row, Card, ProgressBar, Table } from "react-bootstrap";
 
@@ -58,7 +58,7 @@ class Member extends Component {
         <Row>
           <Col>
             <Card>
-              <Card.Img variant="top" src={logo} />
+              <Card.Img variant="top" src={avatar}/>
               <Card.Body>
                 <Card.Title>{this.state.member.name}</Card.Title>
                 <Card.Text>{this.state.member.bio}</Card.Text>

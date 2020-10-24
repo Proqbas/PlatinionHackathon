@@ -48,7 +48,7 @@ const deleteTask = (id) => {
 const assignMembers = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-      .get(`/tasks/${id}/recommend`)
+      .post(`/tasks/${id}/recommend`)
       .then(() => resolve())
       .catch((error) => {
         reject(error);
