@@ -109,7 +109,7 @@ class Task extends Component {
       tags = (
         <ListGroup>
           {this.state.task.suggested_keywords.map((keyword) => (
-            <ListGroup.Item>keyword</ListGroup.Item>
+            <ListGroup.Item>{keyword}</ListGroup.Item>
           ))}
         </ListGroup>
       );
