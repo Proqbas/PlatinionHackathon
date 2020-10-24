@@ -47,6 +47,7 @@ class Member extends Component {
             <td>
               <ProgressBar now={level} />
             </td>
+            <td>{skill.level}/5</td>
           </tr>
         );
       });
@@ -68,7 +69,18 @@ class Member extends Component {
             <Card>
               <Card.Body>
                 <Card.Text>
-                  <Table>{skills}</Table>
+                  <Table hover>
+                    <thead>
+                      <tr>
+                        <td>Skill</td>
+                        <td>Proficiency Level</td>
+                        <td></td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {skills}
+                    </tbody>
+                  </Table>
                 </Card.Text>
               </Card.Body>
             </Card>

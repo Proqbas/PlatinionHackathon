@@ -51,9 +51,14 @@ const deleteTask = (id) => {
 const assignMembers = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-    .delete(`/tasks/${id}/recommend`)
-    .then(() => resolve())
-    .catch((error) => reject(error))
+    .post(`/tasks/${id}/recommend`)
+    .then(() => {
+      console.log("TEST TEST")
+    })
+    .catch((error) => {
+      console.log(error)
+      reject(error)
+    })
   })
 }
 
