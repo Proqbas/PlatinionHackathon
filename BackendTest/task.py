@@ -76,7 +76,7 @@ def create_json_from_task(task):
 def add_task():
     name = request.json['name']
     desc = request.json['desc']
-    status = "PLANNED"
+    status = "OPEN"
     task = Task(name, desc, status)
 
     db.session.add(task)
