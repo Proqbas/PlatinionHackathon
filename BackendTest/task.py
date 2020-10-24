@@ -65,6 +65,7 @@ def create_json_from_task(task):
     result = dict()
     result["id"] = task.id
     result["name"] = task.name
+    result["status"] = task.status
     skills = task.skills
     result["skills"] = [skill_to_dict(x) for x in skills]
 
