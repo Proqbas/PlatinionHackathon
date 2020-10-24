@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { BookmarkCheck, BookmarkX } from "react-bootstrap-icons";
+import avatar from "../media/avatar.png";
 
 const api = require("../api-service");
 
@@ -40,13 +41,13 @@ class MemberCard extends Component {
     if (member.assigned_to === undefined || member.assigned_to.length === 0) {
       return (
         <span>
-          <BookmarkCheck className="text-success"/> Available
+          <BookmarkCheck className="text-success" /> Available
         </span>
       );
     } else {
       return (
         <span>
-          <BookmarkX className="text-danger"/> Not available
+          <BookmarkX className="text-danger" /> Not available
         </span>
       );
     }
@@ -59,6 +60,7 @@ class MemberCard extends Component {
           return (
             <Col>
               <Card>
+                <Card.Img variant="top" src={avatar} />
                 <Card.Body>
                   <Card.Title>{member.name}</Card.Title>
                   <Card.Text>{this.getAvailability(member)}</Card.Text>
