@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
+import { Button, Container, Row, Col, Image } from "react-bootstrap";
 import { ArrowUpRightSquare, XCircle } from "react-bootstrap-icons";
 
 const api = require("../api-service");
@@ -88,7 +88,7 @@ class MembersList extends Component {
                       variant="primary"
                     >
                       <XCircle /> Delete
-                    </Button>{" "}
+                    </Button>
                   </td>
                 </tr>
               );
@@ -96,13 +96,13 @@ class MembersList extends Component {
           </tbody>
         </Table>
 
-        <div class="clear"></div>
-
-        <div>
-          <img alt="Member Map" src={require("../media/peopleMap2.png")} height="1200px" />
-        </div>
-
-        <div class="clear"></div>
+        <Container>
+          <Row>
+            <Col>
+              <Image src={require("../media/peopleMap2.png")} fluid />
+            </Col>
+          </Row>
+        </Container>
       </React.Fragment>
     );
   }

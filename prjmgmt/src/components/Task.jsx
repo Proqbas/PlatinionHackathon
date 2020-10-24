@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Col, Row, Card, ProgressBar, Table } from "react-bootstrap";
+import { Col, Row, Card, ProgressBar, Table, Button } from "react-bootstrap";
 import {
   Binoculars,
   CheckCircle,
@@ -54,6 +54,7 @@ class Task extends Component {
 
     let icon = "";
     let assignment = "";
+    let assignedMembers = "";
 
     if (this.state.task.skills) {
       skills = this.state.task.skills.map((skill) => {
@@ -62,11 +63,37 @@ class Task extends Component {
           <tr>
             <td>{skill.name}</td>
             <td>
-              <ProgressBar now={level} />
+              <ProgressBar striped now={level} />
             </td>
+            <td>{skill.level}/5</td>
           </tr>
         );
       });
+    }
+
+    if (this.state.task.assignee) {
+      assignedMembers = (
+        <Table hover>
+          <thead>
+            <tr>
+              <td>#</td>
+              <td>Name</td>
+              <td>Match</td>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.task.assignee.map((assignee) => {
+              return (
+                <tr>
+                  <td>{assignee.id}</td>
+                  <td>{assignee.name}</td>
+                  <td>Perfect match!</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      );
     }
 
     switch (this.state.task.status) {
@@ -74,9 +101,9 @@ class Task extends Component {
         icon = <Binoculars />;
         assignment = (
           <Card.Body>
-            <Card.Link onClick={() => this.assignMembers(this.state.task.id)}>
-              Assign Members Link
-            </Card.Link>
+            <Button onClick={() => this.assignMembers(this.state.task.id)}>
+              Assign Members to Task
+            </Button>
           </Card.Body>
         );
         break;
@@ -108,12 +135,22 @@ class Task extends Component {
             <Card>
               <Card.Body>
                 <Card.Text>
-                  <Table>{skills}</Table>
+                  <Table hover>
+                    <thead>
+                      <tr>
+                        <th>Skill</th>
+                        <th>Required Proficiency Level</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>{skills}</tbody>
+                  </Table>
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
         </Row>
+        <Row>{assignedMembers}</Row>
       </React.Fragment>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "../logo.svg";
+import avatar from "../media/avatar.png";
 import { withRouter } from "react-router-dom";
 import { Col, Row, Card, ProgressBar, Table } from "react-bootstrap";
 
@@ -47,6 +47,7 @@ class Member extends Component {
             <td>
               <ProgressBar now={level} />
             </td>
+            <td>{skill.level}/5</td>
           </tr>
         );
       });
@@ -57,7 +58,7 @@ class Member extends Component {
         <Row>
           <Col>
             <Card>
-              <Card.Img variant="top" src={logo} />
+              <Card.Img variant="top" src={avatar}/>
               <Card.Body>
                 <Card.Title>{this.state.member.name}</Card.Title>
                 <Card.Text>{this.state.member.bio}</Card.Text>
@@ -68,7 +69,18 @@ class Member extends Component {
             <Card>
               <Card.Body>
                 <Card.Text>
-                  <Table>{skills}</Table>
+                  <Table hover>
+                    <thead>
+                      <tr>
+                        <td>Skill</td>
+                        <td>Proficiency Level</td>
+                        <td></td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {skills}
+                    </tbody>
+                  </Table>
                 </Card.Text>
               </Card.Body>
             </Card>
