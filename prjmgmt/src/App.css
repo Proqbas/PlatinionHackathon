@@ -128,5 +128,10 @@ div.clear {
   line-height: 1.2;
 }
 
+.topHeader{
+  font-size: 6rem;
+  font-weight: 700;
+}
+
 .projectStatusGreen {
   color: rgb(77, 230, 77)}
