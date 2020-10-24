@@ -304,5 +304,9 @@ def get_recommended_user_for_task(id):
     return create_json_from_member(Member.query.get(max_keys))
 
 
+@app.route("/task/<id>/recommend", methods=["GET"])
+def get_recommended_user_for_task_another_url(id):
+    return get_recommended_user_for_task(id)
+
 if __name__ == "__main__":
     app.run(debug=True)
