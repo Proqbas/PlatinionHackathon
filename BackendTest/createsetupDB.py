@@ -46,6 +46,8 @@ with app.app_context():
     t3.skills.append(s2)
     t4.skills.append(s3)
     t5.skills.append(s4)
+
+    m3.assignedto.append(t5)
     #---
     db.session.commit()
 print("Database seeded!")
