@@ -16,9 +16,8 @@ const getTasks = () => {
     axiosInstance
       .get("/tasks")
       .then((response) => {
-        console.log(response)
-
-        resolve(response.data)})
+        resolve(response.data);
+      })
       .catch((error) => reject(error));
   });
 };
@@ -26,17 +25,16 @@ const getTasks = () => {
 const getTask = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-    .get(`/tasks/${id}`)
-    .then((response) => resolve(response.data))
-    .catch((error) => reject(error))
-  })
+      .get(`/tasks/${id}`)
+      .then((response) => resolve(response.data))
+      .catch((error) => reject(error));
+  });
 
   // let tasks = { id: 1, name: "qweqweqwe" };
   // return new Promise((resolve, reject) => {
   //   resolve(tasks);
   // });
 };
-
 
 const deleteTask = (id) => {
   return new Promise((resolve, reject) => {
@@ -47,20 +45,16 @@ const deleteTask = (id) => {
   });
 };
 
-
 const assignMembers = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-    .post(`/tasks/${id}/recommend`)
-    .then(() => {
-      console.log("TEST TEST")
-    })
-    .catch((error) => {
-      console.log(error)
-      reject(error)
-    })
-  })
-}
+      .get(`/tasks/${id}/recommend`)
+      .then(() => resolve())
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 
 const getSkills = () => {
   // let skills = [
@@ -88,10 +82,10 @@ const getSkills = () => {
 const getSkill = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-    .get(`/skills/${id}`)
-    .then((response) => resolve(response.data))
-    .catch((error) => reject(error))
-  })
+      .get(`/skills/${id}`)
+      .then((response) => resolve(response.data))
+      .catch((error) => reject(error));
+  });
 
   // let skill = { id: 1, name: "JAVA" };
 
@@ -132,10 +126,10 @@ const getMembers = () => {
 const getMember = (id) => {
   return new Promise((resolve, reject) => {
     axiosInstance
-    .get(`/members/${id}`)
-    .then((response) => resolve(response.data))
-    .catch((error) => reject(error))
-  })
+      .get(`/members/${id}`)
+      .then((response) => resolve(response.data))
+      .catch((error) => reject(error));
+  });
 
   // let member = { id: 1, name: "Peter" };
 
@@ -153,7 +147,6 @@ const deleteMember = (id) => {
   });
 };
 
-
 module.exports = {
   getTasks,
   getTask,
@@ -164,5 +157,5 @@ module.exports = {
   deleteSkill,
   getMembers,
   getMember,
-  deleteMember
+  deleteMember,
 };
