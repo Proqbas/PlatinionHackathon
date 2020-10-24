@@ -27,13 +27,13 @@ class TaskSchema(ma.Schema):
     class Meta:
         # Fields to expose
         model = Task
-        fields = ('id', 'name', 'skills', 'status')
+        fields = ('id', 'name', 'skills', 'status', 'assignee')
 
 
 class TaskDetailSchema(ma.Schema):
     class Meta:
         # Fields to expose
-        fields = ('id', 'name', 'status')
+        fields = ('id', 'name', 'status', 'assignee')
 
 
 class SkillSchema(ma.Schema):
@@ -51,6 +51,16 @@ tasks_schema = TaskSchema(many=True)
 # querry for the db API
 
 # endpoint to show all tasks
+
+def assignee_to_dict(x):
+    result = dict()
+    result["id"] = x.id
+    result["name"] = x.name
+    result["bio"] = x.bio
+
+    return result
+
+
 def skill_to_dict(x):
     result = dict()
     result["id"] = x.id
@@ -60,13 +70,26 @@ def skill_to_dict(x):
     return result
 
 
+def task_to_dict(x):
+    result = dict()
+    result["id"] = x.id
+    result["name"] = x.name
+    result["desc"] = x.desc
+    result["status"] = x.status
+
+    return result
+
+
 def create_json_from_task(task):
     result = dict()
     result["id"] = task.id
     result["name"] = task.name
     result["status"] = task.status
+    result["desc"] = task.desc
     skills = task.skills
     result["skills"] = [skill_to_dict(x) for x in skills]
+    assignees = task.assignee
+    result["assignee"] = [assignee_to_dict(x) for x in assignees]
 
     return result
 
@@ -74,32 +97,42 @@ def create_json_from_task(task):
 # endpoint to create new task
 @app.route("/tasks", methods=["POST"])
 def add_task():
-    name = request.json['name']
-    desc = request.json['desc']
+    name = request.get_json(force=True)['name']
+    desc = request.get_json(force=True)['desc']
     status = "OPEN"
-    task = Task(name, desc, status)
+    task = Task()
+    task.name = name
+    task.desc = desc
+    task.status = status
 
     db.session.add(task)
     db.session.commit()
 
+    return jsonify("OK")
 
 # endpoint to create new member
 @app.route("/members", methods=["POST"])
 def add_members():
-    name = request.json['name']
+    name = request.get_json(force=True)['name']
+    bio = request.get_json(force=True)['bio']
 
-    member = Member(name)
+    member = Member()
+    member.name = name
+    member.bio = bio
 
     db.session.add(member)
     db.session.commit()
+
+    return jsonify("OK")
 
 
 # endpoint to create new skill
 @app.route("/skills", methods=["POST"])
 def add_skills():
-    name = request.json['name']
+    name = request.get_json(force=True)['name']
 
-    skill = Skill(name)
+    skill = Skill()
+    skill.name = name
 
     db.session.add(skill)
     db.session.commit()
@@ -112,6 +145,8 @@ def create_json_from_member(member):
     result["bio"] = member.bio
     skills = member.skills
     result["skills"] = [skill_to_dict(x) for x in skills]
+    assigned_to = member.assigned_to
+    result["assigned_to"] = [task_to_dict(x) for x in assigned_to]
 
     return result
 
@@ -165,9 +200,13 @@ def get_skill(id):
 @app.route("/tasks/<id>", methods=["PUT"])
 def task_update(id):
     task = Task.query.get(id)
-    name = request.json['name']
-    desc = request.json['desc']
-    status = request.json['status']
+    name = request.get_json(force=True)['name']
+    desc = request.get_json(force=True)['desc']
+    status = request.get_json(force=True)['status']
+    assignees = request.get_json(force=True)['assignee']
+
+    for assignee in assignees:
+        task.assignee.append(Member.query.get(assignee)) #TODO check if assignee is/must be an int
 
     task.name = name
     task.desc = desc
@@ -175,6 +214,7 @@ def task_update(id):
 
     db.session.commit()
 
+    return jsonify("OK")
 
 # endpoint to delete task
 @app.route("/tasks/<id>", methods=["DELETE"])
@@ -183,7 +223,8 @@ def task_delete(id):
     db.session.delete(task)
     db.session.commit()
     json_task = create_json_from_task(task)
-    return json_task
+
+    return jsonify("OK")
 
 
 # endpoint to update members
@@ -193,7 +234,7 @@ def members_update(id):
     name = Member.json['name']
 
     members.name = name
-
+    #TODO if we want to be able to add/delete tasks from member detail view it has to be coded here
     db.session.commit()
 
 

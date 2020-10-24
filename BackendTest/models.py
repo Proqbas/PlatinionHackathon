@@ -35,7 +35,7 @@ class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
     bio = db.Column(db.String(512), nullable=True)
-    assignedto = db.relationship('Task', secondary=assigned, backref=db.backref('assignee'))
+    assigned_to = db.relationship('Task', secondary=assigned, backref=db.backref('assignee'))
 
 
 class Skill(db.Model):
