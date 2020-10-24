@@ -27,13 +27,13 @@ class TaskSchema(ma.Schema):
     class Meta:
         # Fields to expose
         model = Task
-        fields = ('id', 'name', 'skills')
+        fields = ('id', 'name', 'skills', 'status')
 
 
 class TaskDetailSchema(ma.Schema):
     class Meta:
         # Fields to expose
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'status')
 
 
 class SkillSchema(ma.Schema):
@@ -77,8 +77,8 @@ def create_json_from_task(task):
 def add_task():
     name = request.json['name']
     desc = request.json['desc']
-
-    task = Task(name, desc)
+    status = "PLANNED"
+    task = Task(name, desc, status)
 
     db.session.add(task)
     db.session.commit()
